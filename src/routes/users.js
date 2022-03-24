@@ -4,6 +4,10 @@ const router = Router()
 const { check } = require("express-validator")
 
 const { validarJWT } = require('./middlewars/validar-jwt')
+const {
+    usuariosDelete,
+    usuariosPost,
+} = require ("../controllers/users")
 
 app.get("/api", function (req, res) {
     res.json({
@@ -29,9 +33,6 @@ router.delete('/:id',[
     validarJWT,
 
     // El siguiente middleware perimite eliminar a aquellos que sean 'ADMIN_ROLE', 'USER_ROLE', 'VENTAS_ROLE' o 'MANAGER_ROLE'
-
-    tieneRole('ADMIN_ROLE', 'USER_ROLE', 'VENTAS_ROLE', 'MANAGER_ROLE'),
-    check('id', 'El id no es valido').isMongoId(),
     check('id').custom(esUsuarioMongo),
     validarCampos
 ],usuariosDelete)
