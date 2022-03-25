@@ -5,7 +5,7 @@ const {register, login, isAuthenticated, logout}= require('../controllers/authCo
 
 //router para los métodos del controller
 router.post('/register', register)
-router.post('/login', login)
+router.post('', login)
 router.get('/logout', logout)
 
 module.exports = router

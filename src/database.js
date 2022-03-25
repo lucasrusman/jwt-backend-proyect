@@ -4,7 +4,7 @@ const conexion = mysql.createConnection({
     host : "localhost",
     user : "root",
     password : '',
-    database : "login_node_jwt",
+    database : "jwt_practica",
 })
 
 conexion.connect( (error)=> {
