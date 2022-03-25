@@ -4,7 +4,7 @@ const router = express.Router()
 const {mostrarClientes, crearCliente}= require('../controllers/clients')
 
 //router para los métodos del controller
-router.get('/clientes',mostrarClientes)
-router.post('/clientes/crear', crearCliente)
+router.get('',mostrarClientes)
+router.post('/crear', crearCliente)
 
 module.exports = router

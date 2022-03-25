@@ -4,7 +4,7 @@ const conexion = require('../database')
 const {promisify} = require('util')
 
 //Process to see al clients
-const mostrarClientes = async (req, res)=>{
+const mostrarClientes = (req, res)=>{
         conexion.query('SELECT * cliente', (error, rows)=>{
             console.log(rows)
             if(error){
@@ -15,13 +15,13 @@ const mostrarClientes = async (req, res)=>{
         })
 }
 
-const crearCliente = async (req, res)=>{
+const crearCliente = (req, res)=>{
     const {nombre, telefono, zona, direccion, email, detalle} = req.body
     console.log(nombre, telefono, zona, direccion, email, detalle)
 
     conexion.query('INSERT INTO cliente (nombre, telefono, zona, direccion, email, detalle) VALUES (?, ?, ?, ?, ?, ?); ', [nombre, telefono, zona, direccion, email, detalle], (error, rows)=>{
         if(error){console.log(error)}
-        res.json({Status : "Usuario registrado"})
+        res.json({Status : "Cliente creado"})
     })
 }
 

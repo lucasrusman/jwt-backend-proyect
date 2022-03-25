@@ -49,6 +49,7 @@ class Servidor{
 
     rutas(){
         this.app.use('', require('../routes/path'))
+        this.app.use('/clientes', require('../routes/clients'))
     }
     listen(){
         this.app.listen(this.port, () =>{
