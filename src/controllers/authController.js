@@ -18,18 +18,19 @@ const register = async (req, res)=>{
 }
 
 const login = (req, res)=>{
-
         const {email, pass} = req.body
-        conexion.query('SELECT * FROM users WHERE email = ? and pass = ?', [email, pass], async (error, rows)=>{
-        if( rows.length == 0 || ! (await bcryptjs.compare(pass, rows[0].pass)) ){
+        console.log(req.body);
+        conexion.query('SELECT * FROM usuario WHERE email = ?', [email, pass], (error, rows)=>{
+            console.log(rows);
+        if( rows.length == 0 || !(bcryptjs.compare(pass, rows[0].pass)) ){
+            console.log(rows)
+            console.log(error);
             res.json(error)
         }else{
             //inicio de sesión OK
-            const token = jwt.sign({email}, "super_secret", {
+            const token = jwt.sign({email, pass}, "super_secret", {
                 expiresIn: "7d"
             })
-            //generamos el token SIN fecha de expiracion
-            //const token = jwt.sign({id: id}, "super_secret")
             console.log("TOKEN: "+token+" para el Email : "+email)
             const cookiesOptions = {
                 expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -45,7 +46,7 @@ const isAuthenticated = async (req, res, next)=>{
     if (req.cookies.jwt) {
         try {
             const decodificada = await promisify(jwt.verify)(req.cookies.jwt, "super_secret")
-            conexion.query('SELECT * FROM users WHERE id = ?', [decodificada.id], (error, rows)=>{
+            conexion.query('SELECT * FROM usuario WHERE id = ?', [decodificada.id], (error, rows)=>{
                 if(!rows){return next()}
                 req.user = rows[0]
                 return next()
