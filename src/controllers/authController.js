@@ -5,11 +5,8 @@ const {promisify} = require('util')
 
 //Process to register
 const register =  async(req, res)=>{
-        console.log("asdfasdffdas");
-        const {email, pass} = req.body
-        console.log(email, pass);
+        const {email, pass} = req.body;
         let passHash = await bcryptjs.hash(pass, 8)
-        console.log(passHash);
         conexion.query('INSERT INTO usuario (email, pass) VALUES (?, ?); ', [email, passHash], (error, rows)=>{
             if(error){console.log(error)}
             res.json({Status : "Usuario registrado"})
