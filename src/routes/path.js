@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 
-const {register, login, isAuthenticated, logout}= require('../controllers/authController')
+const {register, login,checkToken, logout}= require('../controllers/authController')
 
 //router para los métodos del controller
-router.get('', isAuthenticated)
+router.get('', checkToken)
 router.post('/register', register)
-router.post('', login)
-router.get('/logout', logout)
+router.post('',login)
+router.get('/logout',checkToken, logout)
 
 module.exports = router
