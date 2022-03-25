@@ -1,24 +1,5 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const cors = require('cors')
+const Servidor = require("./models/server");
 
-const app = express()
-app.use(cors())
+const servidor = new Servidor();
 
-
-const { validarJWT } = require('./middlewars/validar-jwt')
-
-app.get("/api", function (req, res) {
-    res.json({
-        msg: "hola"
-    })
-})
-
-app.post("/api/login", validarJWT,function (req, res) {
-
-})
-
-
-app.listen(3000, function () {
-    console.log('app running');
-})
+servidor.listen();

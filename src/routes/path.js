@@ -1,23 +1,11 @@
-const { Router } = require('express')
+const express = require('express')
+const router = express.Router()
 
-const { check } = require("express-validator")
+const {register, login, isAuthenticated, logout}= require('../controllers/authController')
 
-
-const { validarCampos } = require('../middlewars/validar-campos')
-const {
-    login
-} = require('../controllers/path')
-
-
-const router = Router()
-
-router.post('/api/login',[
-    check('correo', 'El correo no es valido').isEmail(),
-    check('password', 'El password no es valido').notEmpty(),
-    validarCampos
-], login )
-
-
-
+//router para los métodos del controller
+router.post('/register', register)
+router.post('/login', login)
+router.get('/logout', logout)
 
 module.exports = router
